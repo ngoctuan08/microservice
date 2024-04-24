@@ -1,0 +1,28 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: invoice
+
+  kafka:
+    consumer:
+      group-id: invoicing
+      value-deserializer: com.ngoctuan.invoice.events.InvoiceDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+
+    listener:
+      ack-mode: MANUAL
+      missing-topics-fatal: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 081199th
+    driver-class-name: org.postgresql.Driver
+
+logging.level.org.springframework.boot.actuate.trace.WebRequestTraceFilter: TRACE

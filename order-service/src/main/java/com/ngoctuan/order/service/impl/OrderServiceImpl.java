@@ -4,12 +4,10 @@ import com.ngoctuan.data.entity.Item;
 import com.ngoctuan.data.entity.Order;
 import com.ngoctuan.order.converter.OrderConverter;
 import com.ngoctuan.order.model.CreateOrderDto;
-import com.ngoctuan.order.repository.CustomerRepository;
-import com.ngoctuan.order.repository.ItemRepository;
 import com.ngoctuan.order.repository.OrderRepository;
+import com.ngoctuan.order.service.MessagingService;
 import com.ngoctuan.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,18 +19,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
-
-    private KafkaTemplate<String, Order> kafkaTemplate;
-
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    private OrderServiceImpl(OrderRepository orderRepository, KafkaTemplate<String, Order> kafkaTemplate) {
-        super();
-        this.orderRepository = orderRepository;
-        this.kafkaTemplate = kafkaTemplate;
-    }
+    private MessagingService messagingService;
 
     @Override
     public List<Order> findAll() {
@@ -64,12 +51,8 @@ public class OrderServiceImpl implements OrderService {
                         .build()).toList();
 
         Order result = orderRepository.save(OrderConverter.toEntity(createOrderDto, items));
-        fireOrderCreatedEvent(result);
+        messagingService.fireOrderCreatedEvent(result);
         return result;
-    }
-
-    private void fireOrderCreatedEvent(Order order) {
-        kafkaTemplate.send("order", order.getId() + "created", order);
     }
 
     public double getPrice(long orderId) {

@@ -5,6 +5,9 @@ spring:
   application:
     name: order
 
+  profiles:
+    active: local
+
   kafka:
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -13,17 +16,6 @@ spring:
 
     listener:
       missing-topics-fatal: false
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: 081199th
-    driver-class-name: org.postgresql.Driver
 
 logging.level.com.ngoctuan.order.clients: TRACE
 logging.level.org.springframework.boot.actuate.trace.WebRequestTraceFilter: TRACE

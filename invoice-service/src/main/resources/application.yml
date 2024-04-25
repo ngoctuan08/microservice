@@ -5,6 +5,9 @@ spring:
   application:
     name: invoice
 
+  profiles:
+    active: local
+
   kafka:
     consumer:
       group-id: invoicing
@@ -15,14 +18,5 @@ spring:
     listener:
       ack-mode: MANUAL
       missing-topics-fatal: false
-  jpa:
-    hibernate:
-      ddl-auto: update
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: 081199th
-    driver-class-name: org.postgresql.Driver
 
 logging.level.org.springframework.boot.actuate.trace.WebRequestTraceFilter: TRACE

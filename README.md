@@ -34,6 +34,6 @@ Remarks on the Code
 -------------------
 
 The microservices are: 
-- [microservice-kafka-order] to create the orders
-- [microservice-kafka-shipping] for the shipping
-- [microservice-kafka-invoicing] for the invoices
+- [order-service] to create the orders
+- [shipping-service] for the shipping
+- [invoice-service] for the invoices

@@ -5,8 +5,7 @@ import com.ngoctuan.data.entity.Order;
 import com.ngoctuan.order.service.MessagingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,11 +15,11 @@ public class MessagingServiceImpl implements MessagingService {
 
     private final Gson gson;
 
-    private final MessageChannel messageChannel;
+    private final KafkaTemplate kafkaTemplate;
 
     @Override
     public void fireOrderCreatedEvent(Order order) {
         log.info("Fire order created event for {}", gson.toJson(order));
-        messageChannel.send(MessageBuilder.withPayload(order).build());
+        kafkaTemplate.send("order", gson.toJson(order));
     }
 }

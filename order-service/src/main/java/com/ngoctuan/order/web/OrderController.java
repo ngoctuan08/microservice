@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/orders")
@@ -33,7 +34,7 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getOrderById(@PathVariable("id") long id) {
-        return ResponseEntity.ok(orderService.findById(id));
+        return ResponseEntity.ok(Mono.just(orderService.findById(id)));
     }
 
     @PostMapping("")

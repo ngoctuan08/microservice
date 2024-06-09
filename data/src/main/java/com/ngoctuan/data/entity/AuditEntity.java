@@ -30,7 +30,7 @@ public abstract class AuditEntity implements Serializable {
     protected Long createdUser;
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     protected LocalDateTime createdDate;
 
     @LastModifiedBy

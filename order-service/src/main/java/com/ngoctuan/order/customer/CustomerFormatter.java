@@ -19,7 +19,7 @@ public class CustomerFormatter implements Formatter<Customer> {
 
 	@Override
 	public String print(Customer customer, Locale locale) {
-		return customer.getCustomerId().toString();
+		return String.valueOf(customer.getCustomerNumber());
 	}
 
 	@Override

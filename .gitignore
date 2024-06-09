@@ -36,6 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 docker/Kafka/data
+docker/data
 gradlew
 gradlew.bat
 gradle

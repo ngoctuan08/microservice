@@ -8,57 +8,77 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapKey;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "order_table")
+@Table(name = "orders")
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class Order extends AuditEntity {
 
     @Id
-    @GeneratedValue
-    private long id;
+    @Column(name = "order_number")
+    @MapKey(name = "order_number")
+    private int orderNumber;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @Column(nullable = false)
+    private LocalDateTime orderDate;
+
+    @Column(nullable = false)
+    private LocalDateTime requiredDate;
+
+    private LocalDateTime shippedDate;
+
+    @Column(nullable = false)
+    private String status;
+
+    private String comments;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_number")
     private Customer customer;
 
-    @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "street", column = @Column(name = "shipping_street")),
-            @AttributeOverride(name = "zip", column = @Column(name = "shipping_zip")),
-            @AttributeOverride(name = "city", column = @Column(name = "shipping_city"))})
-    private Address shippingAddress = new Address();
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetail> orderDetails  = new ArrayList<>();
 
-    @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "street", column = @Column(name = "billing_street")),
-            @AttributeOverride(name = "zip", column = @Column(name = "billing_zip")),
-            @AttributeOverride(name = "city", column = @Column(name = "billing_city"))})
-    private Address billingAddress = new Address();
+    @OneToOne(mappedBy = "order")
+    private Invoice invoice;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Item> items = new ArrayList<>();
-
-    public Order() {
-        super();
-    }
-
-    public double totalPrice() {
-        return items.stream().mapToDouble(item -> item.getPrice() * item.getQuantity()).sum();
-    }
+    @OneToOne(mappedBy = "order")
+    private Shipment shipment;
+//    @Embedded
+//    @AttributeOverrides({@AttributeOverride(name = "street", column = @Column(name = "shipping_street")),
+//            @AttributeOverride(name = "zip", column = @Column(name = "shipping_zip")),
+//            @AttributeOverride(name = "city", column = @Column(name = "shipping_city"))})
+//    private Address shippingAddress = new Address();
+//
+//    @Embedded
+//    @AttributeOverrides({@AttributeOverride(name = "street", column = @Column(name = "billing_street")),
+//            @AttributeOverride(name = "zip", column = @Column(name = "billing_zip")),
+//            @AttributeOverride(name = "city", column = @Column(name = "billing_city"))})
+//    private Address billingAddress = new Address();
 
     @Override
     public String toString() {

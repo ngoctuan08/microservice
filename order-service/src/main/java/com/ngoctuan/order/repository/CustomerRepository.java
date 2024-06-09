@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends PagingAndSortingRepository<Customer, Long>, CrudRepository<Customer, Long> {
 
-	List<Customer> findByName(@Param("name") String name);
+	List<Customer> findByCustomerName(@Param("name") String name);
 
 }

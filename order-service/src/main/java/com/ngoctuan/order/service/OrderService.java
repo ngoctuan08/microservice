@@ -14,5 +14,5 @@ public interface OrderService {
 
     Order createOrder(CreateOrderDto createOrderDto);
 
-    double getPrice(long orderId);
+//    double getPrice(long orderId);
 }

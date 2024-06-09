@@ -3,7 +3,9 @@ package com.ngoctuan.data.entity;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +27,12 @@ public class Shipment {
     private long id;
 
     @ManyToOne
+    @JoinColumn(name = "customer_number")
     private Customer customer;
+
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     private Date updated;
 

@@ -1,6 +1,5 @@
 package com.ngoctuan.order.service.impl;
 
-import com.ngoctuan.data.entity.Item;
 import com.ngoctuan.data.entity.Order;
 import com.ngoctuan.order.converter.OrderConverter;
 import com.ngoctuan.order.model.CreateOrderDto;
@@ -43,19 +42,19 @@ public class OrderServiceImpl implements OrderService {
 
         List<CreateOrderDto.ItemDto> itemDtos = createOrderDto.getItemDtos();
 
-        List<Item> items = itemDtos.stream().map(itemDto ->
-                Item.builder()
-                        .name(itemDto.getName())
-                        .price(itemDto.getPrice())
-                        .quantity((int) itemDto.getQuantity())
-                        .build()).toList();
+//        List<Item> items = itemDtos.stream().map(itemDto ->
+//                Item.builder()
+//                        .name(itemDto.getName())
+//                        .price(itemDto.getPrice())
+//                        .quantity((int) itemDto.getQuantity())
+//                        .build()).toList();
 
-        Order result = orderRepository.save(OrderConverter.toEntity(createOrderDto, items));
+        Order result = orderRepository.save(OrderConverter.toEntity(createOrderDto));
         messagingService.fireOrderCreatedEvent(result);
         return result;
     }
 
-    public double getPrice(long orderId) {
-        return orderRepository.findById(orderId).get().totalPrice();
-    }
+//    public double getPrice(long orderId) {
+//        return orderRepository.findById(orderId).get().totalPrice();
+//    }
 }

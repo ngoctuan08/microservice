@@ -2,6 +2,8 @@ package com.ngoctuan.data.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,16 +16,10 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address implements Serializable {
+public class PaymentId implements Serializable {
 
-	@Column(nullable = false)
-	private String city;
+    @Column(name = "customer_number")
+    private int customerNumber;
 
-	private String state;
-
-	@Column(nullable = false)
-	private String postalCode;
-
-	@Column(nullable = false)
-	private String country;
+    private String checkNumber;
 }

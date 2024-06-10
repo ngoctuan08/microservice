@@ -21,7 +21,7 @@ public class Address implements Serializable {
 
 	private String state;
 
-	@Column(nullable = false)
+	@Column(nullable = false,name = "postal_code")
 	private String postalCode;
 
 	@Column(nullable = false)

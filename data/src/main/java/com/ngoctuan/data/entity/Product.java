@@ -10,7 +10,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,32 +24,32 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product extends AuditEntity {
+public class Product extends AuditEntity implements Serializable {
 
     @Id
     @Column(name = "product_code")
     private String productCode;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "product_name")
     private String productName;
 
     @ManyToOne
     @JoinColumn(name = "product_line")
     private ProductLine productLine;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "product_scale")
     private String productScale;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "product_vendor")
     private String productVendor;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "product_description")
     private String productDescription;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "quantity_in_stock")
     private short quantityInStock;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "buy_price")
     private BigDecimal buyPrice;
 
     @Column(nullable = false)
@@ -53,4 +57,19 @@ public class Product extends AuditEntity {
 
     @OneToMany(mappedBy = "product")
     private List<OrderDetail> orderDetails = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
 }

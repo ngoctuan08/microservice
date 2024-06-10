@@ -16,6 +16,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,35 +26,35 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer extends AuditEntity {
+public class Customer extends AuditEntity implements Serializable {
 
     @Id
     @Column(name = "customer_number")
     @MapKey(name = "customer_number")
     private int customerNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "customer_name")
     private String customerName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "contact_last_name")
     private String contactLastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "contact_first_name")
     private String contactFirstName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "phone")
     private String phone;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "address_line1")
     private String addressLine1;
 
-    @Column
+    @Column(name = "address_line2")
     private String addressLine2;
 
     @Embedded
     private Address address;
 
-    @Column
+    @Column(name = "credit_limit")
     private BigDecimal creditLimit;
 
     @ManyToOne

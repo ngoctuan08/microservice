@@ -23,6 +23,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,19 +37,20 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class Order extends AuditEntity {
+public class Order extends AuditEntity implements Serializable {
 
     @Id
     @Column(name = "order_number")
     @MapKey(name = "order_number")
     private int orderNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "order_date")
     private LocalDateTime orderDate;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "required_date")
     private LocalDateTime requiredDate;
 
+    @Column(name = "shipped_date")
     private LocalDateTime shippedDate;
 
     @Column(nullable = false)

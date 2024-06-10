@@ -26,19 +26,19 @@ import java.time.LocalDateTime;
 public abstract class AuditEntity implements Serializable {
 
     @CreatedBy
-    @Column(updatable = false)
+    @Column(updatable = false, name = "created_user")
     protected Long createdUser;
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, name = "created_date")
     protected LocalDateTime createdDate;
 
     @LastModifiedBy
-    @Column
+    @Column(name = "updated_user")
     protected Long updatedUser;
 
     @LastModifiedDate
-    @Column
+    @Column(name = "updated_date")
     @Builder.Default
     protected LocalDateTime updatedDate = LocalDateTime.now();
 }

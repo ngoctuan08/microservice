@@ -14,12 +14,14 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Invoice extends AuditEntity {
+public class Invoice extends AuditEntity implements Serializable {
 
 	@Id
 	private long id;

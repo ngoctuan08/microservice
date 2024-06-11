@@ -1,4 +1,4 @@
-package com.ngoctuan.auth.controller;
+package com.ngoctuan.auth.web;
 
 import com.ngoctuan.auth.model.AuthRequest;
 import com.ngoctuan.auth.model.AuthResponse;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/auth")
+@RequestMapping(value = "/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

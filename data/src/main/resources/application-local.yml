@@ -8,3 +8,10 @@ spring:
     username: root
     password: 081199th
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+mysql:
+  host: ${DB_HOST:localhost}
+  port: ${DB_PORT:3306}
+  username: ${DB_USER:root}
+  password: ${DB_PASSWORD:081199th}
+  database: commerce
